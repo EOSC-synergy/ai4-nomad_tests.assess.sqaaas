@@ -1,0 +1,42 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/2.0.0
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/ai4os/ai4-nomad_tests:
+      branch: master
+      repo: https://github.com/ai4os/ai4-nomad_tests
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/ai4os/ai4-nomad_tests git:
+        commands:
+        - /usr/bin/env sh .sqa/script.tasty-lilac-sheep.sh
+        container: qc.acc_muggy-teal-collie
+  QC.Doc:
+    repos:
+      github.com/ai4os/ai4-nomad_tests find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.surly-flax-eleuth.sh
+        container: qc.doc_snappy-orchid-lobster
+      github.com/ai4os/ai4-nomad_tests git:
+        commands:
+        - /usr/bin/env sh .sqa/script.gummy-salmon-catfish.sh
+        container: qc.doc_wheezy-carmine-squirt
+  QC.Lic:
+    repos:
+      github.com/ai4os/ai4-nomad_tests licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.trippy-viridian-zonkey.sh
+        container: qc.lic_hazy-azure-mule
+  QC.Ver:
+    repos:
+      github.com/ai4os/ai4-nomad_tests get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.nerdy-heliotrope-zonkey.sh
+        container: qc.ver_snappy-olivine-spitz
+timeout: 5400
